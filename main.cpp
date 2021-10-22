@@ -73,11 +73,6 @@ void mass_Be_stiff(){
         }
         //2. count the mass in each node of an element
         double vole = fabs(A.determinant())/6;
-        /*for(int j=0; j<4; j++){
-            M(3*tet(j,i)  ,3*tet(j,i)  ) += (vole/4); //maybe bug :vole/12?
-            M(3*tet(j,i)+1,3*tet(j,i)+1) += (vole/4);
-            M(3*tet(j,i)+2,3*tet(j,i)+2) += (vole/4);
-        }*/
 
         /*compute strain coefficient Be of e = Be*u */
         A_in = A.inverse();
@@ -118,7 +113,6 @@ void mass_Be_stiff(){
 
     }
     //M = M*freedom;
-    //cout << "mass:\n"<<M << endl;
 }
 
 /*class energy{
@@ -236,7 +230,7 @@ void newton(){
 
         MatrixXd rot = MatrixXd::Zero(3, 3);
         rot = Ds*Dm.inverse(); //initial rot_matrix with displacement gradient
-        //if(i==0) cout <<"rot: "<<rot<<endl;
+        
         JacobiSVD<MatrixXd> svd(rot, ComputeFullU | ComputeFullV);
         MatrixXd rotation = MatrixXd::Zero(3,3);
         rotation = svd.matrixU()*svd.matrixV().transpose();
